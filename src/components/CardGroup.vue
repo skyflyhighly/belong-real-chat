@@ -1,20 +1,23 @@
 <template>
   <div
-    class="card-item"
+    class="card-group"
     v-for="(card, index) in props.group?.cards"
     :key="index"
     :style="{
       top: generateCardOffset(index),
     }"
+    @click="showDetail()"
   >
     <card :card="card"></card>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
 import Card from '../components/Card.vue'
 
-interface Props {
+interface IProps {
   group: {
     type: string
     cards: {
@@ -23,10 +26,16 @@ interface Props {
   }
 }
 
-const props = defineProps<Props>()
+const router = useRouter()
+
+const props = defineProps<IProps>()
 
 function generateCardOffset(index: number): string {
   return `${10 * index}px`
+}
+
+function showDetail() {
+  router.push(`/cards/${props.group.type}`)
 }
 </script>
 
@@ -36,7 +45,7 @@ function generateCardOffset(index: number): string {
   position: relative;
 }
 
-.card-item {
+.card-group {
   position: absolute;
   width: 100%;
 }

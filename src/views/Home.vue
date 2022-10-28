@@ -1,40 +1,39 @@
 <template>
-  <ion-content class="ion-padding">
-    <div class="header">
-      <ion-title size="large" class="float-left">Wallet</ion-title>
+  <ion-page>
+    <ion-content class="ion-padding">
+      <div class="header">
+        <ion-title size="large" class="float-left">Wallet</ion-title>
+        <ion-button class="modal-close float-left" fill="clear"
+          >Done</ion-button
+        >
 
-      <!-- This is a placeholder element to help with the transition -->
-      <ion-button class="modal-close float-left" fill="clear">Done</ion-button>
-
-      <ion-icon
-        name="add-circle"
-        slot="icon-only"
-        class="float-right add-to-wallet trans"
-      >
-      </ion-icon>
-
-      <!-- This is a placeholder element to help with the transition -->
-      <ion-icon
-        name="ellipsis-horizontal-circle-sharp"
-        class="modal-more float-right"
-      ></ion-icon>
-
-      <div class="float-clear"></div>
-    </div>
-
-    <div class="card-groups">
-      <div
-        class="card-group trans-slow ion-activatable"
-        v-for="(cardGroup, index) in cardGroups"
-        :key="index"
-        :style="{
-          top: generateCardOffset(cardGroup, index),
-        }"
-      >
-        <card-group :group="cardGroup"> </card-group>
+        <ion-icon
+          name="add-circle"
+          slot="icon-only"
+          class="float-right add-to-wallet trans"
+        >
+        </ion-icon>
+        <ion-icon
+          name="ellipsis-horizontal-circle-sharp"
+          class="modal-more float-right"
+        ></ion-icon>
+        <div class="float-clear"></div>
       </div>
-    </div>
-  </ion-content>
+
+      <div class="card-groups">
+        <div
+          class="card-group trans-slow ion-activatable"
+          v-for="(cardGroup, index) in cardGroups"
+          :key="index"
+          :style="{
+            top: generateCardOffset(cardGroup, index),
+          }"
+        >
+          <card-group :group="cardGroup"> </card-group>
+        </div>
+      </div>
+    </ion-content>
+  </ion-page>
 </template>
 
 <script lang="ts" setup>
@@ -45,9 +44,12 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonIcon,
 } from '@ionic/vue'
 
 import CardGroup from '../components/CardGroup.vue'
+
+import { cardGroups } from '../constants'
 
 interface ICardGroup {
   cards: {
@@ -55,25 +57,6 @@ interface ICardGroup {
   }[]
   type: string
 }
-
-const cardGroups = [
-  {
-    type: 'apple-cash',
-    cards: [{ type: 'apple-cash' }],
-  },
-  {
-    type: 'debit',
-    cards: [{ type: 'debit' }],
-  },
-  {
-    type: 'pass',
-    cards: [{ type: 'pass' }, { type: 'pass' }],
-  },
-  {
-    type: 'generic',
-    cards: [{ type: 'generic' }, { type: 'generic' }, { type: 'generic' }],
-  },
-]
 
 function generateCardOffset(cardGroup: ICardGroup, index: number) {
   const isDebitOrCash =

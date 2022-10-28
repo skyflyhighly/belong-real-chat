@@ -1,23 +1,22 @@
 <template>
-  <div class="card-container" :class="props.card.type">
+  <div class="card-container" :class="card.type">
     <div class="card"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-interface Props {
+interface IProps {
   card: {
     type: string
   }
 }
 
-const props = defineProps<Props>()
+const props = defineProps<IProps>()
 </script>
 
 <style scoped>
 .card-container.card-mask {
   height: 240px;
-
   overflow: hidden;
 }
 
@@ -28,18 +27,14 @@ const props = defineProps<Props>()
 .card-container.generic .card,
 .card-container.pass .card {
   height: 560px;
-
   border-radius: 0px;
-
   background-position: center top;
 }
 
 .card-container.apple-cash .card,
 .card-container.debit .card {
   height: 240px;
-
   border-radius: 10px;
-
   background-position: center center;
 }
 
