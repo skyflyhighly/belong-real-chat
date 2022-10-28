@@ -41,6 +41,7 @@ import {
   IonListHeader,
   IonButtons,
   IonButton,
+  IonLabel,
 } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 
@@ -72,31 +73,6 @@ function goBack() {
 ion-header ion-toolbar {
   --border-width: 0px;
   --background: black;
-}
-
-ion-header .done {
-  font-weight: 600;
-  --color: white;
-  --opacity: 1;
-}
-
-ion-header .more {
-  font-size: 28px;
-}
-
-.mini-card-wrapper {
-  position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  opacity: 1;
-  transform-origin: top;
-  transform: translateY(-34px) scale(0.12);
-}
-
-.mini-card-wrapper.hidden {
-  opacity: 0;
-  transform: translateY(0px) scale(0.12);
 }
 
 ion-content {
