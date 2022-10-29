@@ -8,7 +8,7 @@
     }"
     @click="showDetail()"
   >
-    <card :card="card"></card>
+    <card :card="card" :mask="true"></card>
   </div>
 </template>
 

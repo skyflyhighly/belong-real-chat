@@ -1,10 +1,6 @@
 <template>
   <ion-content>
-    <div
-      class="scroll-container ion-padding"
-      :enter-animation="enterAnimation"
-      :leave-animation="leaveAnimation"
-    >
+    <div class="scroll-container ion-padding">
       <div
         class="card"
         v-for="(card, index) in group.cards"
@@ -13,7 +9,7 @@
           left: index * 8 + 'px',
         }"
       >
-        <card :card="card" mask="false" />
+        <card :card="card" :mask="false" />
       </div>
     </div>
   </ion-content>
@@ -21,6 +17,7 @@
 
 <script lang="ts" setup>
 import { IonContent, createAnimation } from '@ionic/vue'
+import { onMounted } from '@vue/runtime-core'
 
 import Card from '../components/Card.vue'
 
@@ -33,32 +30,44 @@ interface IProps {
   }
 }
 
-const props = defineProps<IProps>()
-
-const enterAnimation = (baseEl: any) => {
-  const root = baseEl.shadowRoot
-
-  const backdropAnimation = createAnimation()
-    .addElement(root.querySelector('ion-backdrop')!)
-    .fromTo('opacity', '0.01', 'var(--backdrop-opacity)')
-
-  const wrapperAnimation = createAnimation()
-    .addElement(root.querySelector('.scroll-container')!)
+onMounted(() => {
+  const animation = createAnimation()
+    .addElement(document.querySelector('.card'))
+    .easing('ease-out')
+    .duration(500)
     .keyframes([
       { offset: 0, opacity: '0', transform: 'scale(0)' },
       { offset: 1, opacity: '0.99', transform: 'scale(1)' },
     ])
 
-  return createAnimation()
-    .addElement(baseEl)
-    .easing('ease-out')
-    .duration(500)
-    .addAnimation([backdropAnimation, wrapperAnimation])
-}
+  animation.play()
+})
 
-const leaveAnimation = (baseEl: any) => {
-  return enterAnimation(baseEl).direction('reverse')
-}
+const props = defineProps<IProps>()
+
+// const animation = createAnimation()
+//   .addElement(document.querySelector('.card')!)
+//   .easing('ease-out')
+//   .duration(500)
+
+// const enterAnimation = () => {
+//   const wrapperAnimation = createAnimation()
+//     .addElement(document.querySelector('.scroll-container')!)
+//     .keyframes([
+//       { offset: 0, opacity: '0', transform: 'scale(0)' },
+//       { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+//     ])
+
+//   return createAnimation()
+//     .addElement(document.querySelector('.scroll-container')!)
+//     .easing('ease-out')
+//     .duration(500)
+//     .addAnimation([wrapperAnimation])
+// }
+
+// const leaveAnimation = (baseEl: HTMLElement) => {
+//   return enterAnimation(baseEl).direction('reverse')
+// }
 </script>
 
 <style scoped>

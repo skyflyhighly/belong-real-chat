@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container" :class="card.type">
+  <div class="card-container" :class="[card.type, mask ? 'card-mask' : '']">
     <div class="card"></div>
   </div>
 </template>
@@ -9,6 +9,7 @@ interface IProps {
   card: {
     type: string
   }
+  mask: boolean
 }
 
 const props = defineProps<IProps>()

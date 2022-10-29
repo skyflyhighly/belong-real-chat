@@ -1,7 +1,7 @@
 <template>
   <ion-content class="ion-padding">
     <div class="card-wrapper">
-      <card :card="getCard()" @click="goBack()"></card>
+      <card :card="getCard()" :mask="false" @click="goBack()"></card>
     </div>
 
     <div class="transactions-list">
