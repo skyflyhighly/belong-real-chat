@@ -40,8 +40,9 @@ const customAnimationBuilder = (baseEl?: Element, opts?: object) => {
     .easing('ease-out')
     .duration(500)
     .keyframes([
-      { offset: 0, opacity: '0.99', transform: 'scale(1)' },
-      { offset: 1, opacity: '0', transform: 'scale(0)' },
+      { offset: 0, transform: 'scale(1)', opacity: '0.5' },
+      { offset: 0.5, transform: 'scale(0.8)', opacity: '1' },
+      { offset: 1, transform: 'scale(1)', opacity: '0.5' },
     ])
 
   return customAnimation
