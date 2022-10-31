@@ -1,4 +1,4 @@
-export interface CardGroup {
+export interface ICardGroup {
   cards: Card[]
   type: CardType
 }

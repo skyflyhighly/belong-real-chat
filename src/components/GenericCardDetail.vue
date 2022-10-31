@@ -1,23 +1,43 @@
 <template>
   <ion-content>
     <div class="scroll-container ion-padding">
-      <div
+      <swiper
+        :modules="modules"
+        :autoplay="true"
+        :keyboard="true"
+        :pagination="true"
+        :scrollbar="true"
+        :zoom="true"
         class="card"
-        v-for="(card, index) in group.cards"
-        :key="index"
-        :style="{
-          left: index * 8 + 'px',
-        }"
       >
-        <card :card="card" :mask="false" />
-      </div>
+        <swiper-slide
+          v-for="(card, index) in group.cards"
+          :key="index"
+          :style="{
+            left: index * 8 + 'px',
+          }"
+        >
+          <card :card="card" :mask="false" />
+        </swiper-slide>
+      </swiper>
     </div>
   </ion-content>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { IonContent, createAnimation } from '@ionic/vue'
 import { onMounted } from '@vue/runtime-core'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swiper'
+
+import 'swiper/css'
+import 'swiper/css/autoplay'
+import 'swiper/css/keyboard'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+import 'swiper/css/zoom'
+import '@ionic/vue/css/ionic-swiper.css'
 
 import Card from '../components/Card.vue'
 
@@ -30,18 +50,20 @@ interface IProps {
   }
 }
 
-onMounted(() => {
-  const animation = createAnimation()
-    .addElement(document.querySelector('.card'))
-    .easing('ease-out')
-    .duration(500)
-    .keyframes([
-      { offset: 0, opacity: '0', transform: 'scale(0)' },
-      { offset: 1, opacity: '0.99', transform: 'scale(1)' },
-    ])
+const modules = ref([Autoplay, Keyboard, Pagination, Scrollbar, Zoom])
 
-  animation.play()
-})
+// onMounted(() => {
+//   const animation = createAnimation()
+//     .addElement(document.querySelector('.card'))
+//     .easing('ease-out')
+//     .duration(500)
+//     .keyframes([
+//       { offset: 0, opacity: '0', transform: 'scale(0)' },
+//       { offset: 1, opacity: '0.99', transform: 'scale(1)' },
+//     ])
+
+//   animation.play()
+// })
 
 const props = defineProps<IProps>()
 

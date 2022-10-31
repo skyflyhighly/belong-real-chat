@@ -16,6 +16,9 @@ const props = defineProps<IProps>()
 </script>
 
 <style scoped>
+.card-container {
+  width: 100%;
+}
 .card-container.card-mask {
   height: 240px;
   overflow: hidden;

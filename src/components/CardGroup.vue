@@ -13,7 +13,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
+import { IonPage, IonContent, useIonRouter, createAnimation } from '@ionic/vue'
+import { ref } from 'vue'
+// import { useRouter } from 'vue-router'
 
 import Card from '../components/Card.vue'
 
@@ -26,7 +28,13 @@ interface IProps {
   }
 }
 
-const router = useRouter()
+const router = useIonRouter()
+
+// const customAnimation = createAnimation()
+//   .addElement(document.querySelector('.card'))
+//   .duration(500)
+//   .easing('ease-out')
+//   .fromTo('opacity', '1', '0.5')
 
 const props = defineProps<IProps>()
 

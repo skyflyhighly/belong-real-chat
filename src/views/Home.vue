@@ -29,7 +29,7 @@
             top: generateCardOffset(cardGroup, index),
           }"
         >
-          <card-group :group="cardGroup"> </card-group>
+          <card-group :group="cardGroup" />
         </div>
       </div>
     </ion-content>
