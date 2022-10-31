@@ -1,5 +1,5 @@
 <template>
-  <ion-content class="ion-padding">
+  <ion-content id="transaction-card-detail" class="ion-padding">
     <div class="card-wrapper">
       <card :card="getCard()" :mask="false" @click="goBack()"></card>
     </div>
@@ -42,8 +42,9 @@ import {
   IonButtons,
   IonButton,
   IonLabel,
+  useIonRouter,
+  createAnimation,
 } from '@ionic/vue'
-import { useRouter } from 'vue-router'
 
 import Card from './Card.vue'
 import { transactions } from '../constants'
@@ -58,14 +59,27 @@ interface IProps {
 }
 
 const props = defineProps<IProps>()
-const router = useRouter()
+const router = useIonRouter()
 
 function getCard() {
   return props.group.cards[0]
 }
 
+const customAnimationBuilder = (baseEl: Element, opts?: object) => {
+  const customAnimation = createAnimation()
+    .addElement(baseEl as Element)
+    .easing('ease-out')
+    .duration(500)
+    .keyframes([
+      { offset: 0, opacity: '0.99', transform: 'scale(1)' },
+      { offset: 1, opacity: '0', transform: 'scale(0)' },
+    ])
+
+  return customAnimation
+}
+
 function goBack() {
-  router.push('/home')
+  router.push('/home', customAnimationBuilder)
 }
 </script>
 

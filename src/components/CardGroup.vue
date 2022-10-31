@@ -14,8 +14,6 @@
 
 <script lang="ts" setup>
 import { IonPage, IonContent, useIonRouter, createAnimation } from '@ionic/vue'
-import { ref } from 'vue'
-// import { useRouter } from 'vue-router'
 
 import Card from '../components/Card.vue'
 
@@ -30,20 +28,27 @@ interface IProps {
 
 const router = useIonRouter()
 
-// const customAnimation = createAnimation()
-//   .addElement(document.querySelector('.card'))
-//   .duration(500)
-//   .easing('ease-out')
-//   .fromTo('opacity', '1', '0.5')
-
 const props = defineProps<IProps>()
 
 function generateCardOffset(index: number): string {
   return `${10 * index}px`
 }
 
+const customAnimationBuilder = (baseEl?: Element, opts?: object) => {
+  const customAnimation = createAnimation()
+    .addElement(baseEl as Element)
+    .easing('ease-out')
+    .duration(500)
+    .keyframes([
+      { offset: 0, opacity: '0.99', transform: 'scale(1)' },
+      { offset: 1, opacity: '0', transform: 'scale(0)' },
+    ])
+
+  return customAnimation
+}
+
 function showDetail() {
-  router.push(`/cards/${props.group.type}`)
+  router.push(`/cards/${props.group.type}`, customAnimationBuilder)
 }
 </script>
 

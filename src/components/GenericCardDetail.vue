@@ -1,5 +1,5 @@
 <template>
-  <ion-content>
+  <ion-content id="generic-card-detail">
     <div class="scroll-container ion-padding">
       <swiper
         :modules="modules"
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch, watchEffect } from 'vue'
 import { IonContent, createAnimation } from '@ionic/vue'
 import { onMounted } from '@vue/runtime-core'
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -52,44 +52,7 @@ interface IProps {
 
 const modules = ref([Autoplay, Keyboard, Pagination, Scrollbar, Zoom])
 
-// onMounted(() => {
-//   const animation = createAnimation()
-//     .addElement(document.querySelector('.card'))
-//     .easing('ease-out')
-//     .duration(500)
-//     .keyframes([
-//       { offset: 0, opacity: '0', transform: 'scale(0)' },
-//       { offset: 1, opacity: '0.99', transform: 'scale(1)' },
-//     ])
-
-//   animation.play()
-// })
-
 const props = defineProps<IProps>()
-
-// const animation = createAnimation()
-//   .addElement(document.querySelector('.card')!)
-//   .easing('ease-out')
-//   .duration(500)
-
-// const enterAnimation = () => {
-//   const wrapperAnimation = createAnimation()
-//     .addElement(document.querySelector('.scroll-container')!)
-//     .keyframes([
-//       { offset: 0, opacity: '0', transform: 'scale(0)' },
-//       { offset: 1, opacity: '0.99', transform: 'scale(1)' },
-//     ])
-
-//   return createAnimation()
-//     .addElement(document.querySelector('.scroll-container')!)
-//     .easing('ease-out')
-//     .duration(500)
-//     .addAnimation([wrapperAnimation])
-// }
-
-// const leaveAnimation = (baseEl: HTMLElement) => {
-//   return enterAnimation(baseEl).direction('reverse')
-// }
 </script>
 
 <style scoped>

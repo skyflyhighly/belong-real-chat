@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page id="card-detail">
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
@@ -31,8 +31,10 @@ import {
   IonHeader,
   IonToolbar,
   IonIcon,
+  useIonRouter,
+  createAnimation,
 } from '@ionic/vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 import GenericCardDetail from '../components/GenericCardDetail.vue'
 import TransactionCardDetail from '../components/TransactionCardDetail.vue'
@@ -45,11 +47,24 @@ interface ICardGroup {
   type: string
 }
 
-const router = useRouter()
+const router = useIonRouter()
 const route = useRoute()
 
+const customAnimationBuilder = (selectedEl: Element, opts?: object) => {
+  const customAnimation = createAnimation()
+    .addElement(selectedEl)
+    .easing('ease-out')
+    .duration(500)
+    .keyframes([
+      { offset: 0, opacity: '0.99', transform: 'scale(1)' },
+      { offset: 1, opacity: '0', transform: 'scale(0)' },
+    ])
+
+  return customAnimation
+}
+
 function goBack() {
-  router.push('/home')
+  router.push('/home', customAnimationBuilder)
 }
 
 const selectedCardGroup: ICardGroup[] = cardGroups.filter(
