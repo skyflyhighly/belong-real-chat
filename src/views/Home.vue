@@ -37,15 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  IonContent,
-  IonButton,
-  IonPage,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonIcon,
-} from '@ionic/vue'
+import { IonContent, IonButton, IonPage, IonTitle, IonIcon } from '@ionic/vue'
 
 import CardGroup from '../components/CardGroup.vue'
 

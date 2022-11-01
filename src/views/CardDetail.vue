@@ -32,7 +32,6 @@ import {
   IonToolbar,
   IonIcon,
   useIonRouter,
-  createAnimation,
 } from '@ionic/vue'
 import { useRoute } from 'vue-router'
 
@@ -50,18 +49,18 @@ interface ICardGroup {
 const router = useIonRouter()
 const route = useRoute()
 
-const customAnimationBuilder = (selectedEl: Element, opts?: object) => {
-  const customAnimation = createAnimation()
-    .addElement(selectedEl)
-    .easing('ease-out')
-    .duration(200)
-    .keyframes([
-      { offset: 0, opacity: 1 },
-      { offset: 1, opacity: 0 },
-    ])
+// const customAnimationBuilder = (selectedEl: Element, opts?: object) => {
+//   const customAnimation = createAnimation()
+//     .addElement(selectedEl)
+//     .easing('ease-out')
+//     .duration(200)
+//     .keyframes([
+//       { offset: 0, opacity: 1 },
+//       { offset: 1, opacity: 0 },
+//     ])
 
-  return customAnimation
-}
+//   return customAnimation
+// }
 
 function goBack() {
   router.push('/home')

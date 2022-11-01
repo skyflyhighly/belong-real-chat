@@ -13,12 +13,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineComponent } from 'vue'
 import {
   IonContent,
   IonButton,
   IonButtons,
-  IonBackButton,
   IonHeader,
   IonTitle,
   IonToolbar,

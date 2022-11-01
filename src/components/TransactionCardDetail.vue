@@ -36,15 +36,11 @@
 
 <script lang="ts" setup>
 import {
-  IonHeader,
-  IonToolbar,
   IonIcon,
   IonItem,
   IonContent,
   IonList,
   IonListHeader,
-  IonButtons,
-  IonButton,
   IonLabel,
   useIonRouter,
   createAnimation,
@@ -67,19 +63,6 @@ const router = useIonRouter()
 
 function getCard() {
   return props.group.cards[0]
-}
-
-const customAnimationBuilder = (baseEl: Element, opts?: object) => {
-  const customAnimation = createAnimation()
-    .addElement(baseEl as Element)
-    .easing('ease-out')
-    .duration(200)
-    .keyframes([
-      { offset: 0, opacity: 1 },
-      { offset: 1, opacity: 0 },
-    ])
-
-  return customAnimation
 }
 
 function goBack() {

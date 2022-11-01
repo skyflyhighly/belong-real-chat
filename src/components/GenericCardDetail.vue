@@ -25,9 +25,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, watchEffect } from 'vue'
-import { IonContent, createAnimation } from '@ionic/vue'
-import { onMounted } from '@vue/runtime-core'
+import { ref } from 'vue'
+import { IonContent } from '@ionic/vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Keyboard, Pagination, Scrollbar, Zoom } from 'swiper'
 
