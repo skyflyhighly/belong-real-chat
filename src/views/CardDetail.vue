@@ -54,18 +54,17 @@ const customAnimationBuilder = (selectedEl: Element, opts?: object) => {
   const customAnimation = createAnimation()
     .addElement(selectedEl)
     .easing('ease-out')
-    .duration(500)
+    .duration(200)
     .keyframes([
-      { offset: 0, transform: 'scale(1)', opacity: '0.5' },
-      { offset: 0.5, transform: 'scale(0.8)', opacity: '1' },
-      { offset: 1, transform: 'scale(1)', opacity: '0.5' },
+      { offset: 0, opacity: 1 },
+      { offset: 1, opacity: 0 },
     ])
 
   return customAnimation
 }
 
 function goBack() {
-  router.push('/home', customAnimationBuilder)
+  router.push('/home')
 }
 
 const selectedCardGroup: ICardGroup[] = cardGroups.filter(
@@ -78,6 +77,10 @@ const isTransactionCard = () =>
 </script>
 
 <style scoped>
+.relative {
+  position: relative;
+}
+
 ion-header ion-toolbar {
   --border-width: 0px;
   --background: black;

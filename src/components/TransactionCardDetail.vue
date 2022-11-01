@@ -1,6 +1,6 @@
 <template>
-  <ion-content id="transaction-card-detail" class="ion-padding">
-    <div class="card-wrapper">
+  <ion-content id="transaction-card-detail" class="ion-padding relative">
+    <div class="card-wrapper fade-up">
       <card :card="getCard()" :mask="false" @click="goBack()"></card>
     </div>
 
@@ -9,7 +9,11 @@
         <ion-label>Latest Transactions</ion-label>
       </ion-list-header>
       <ion-list>
-        <ion-item v-for="(transaction, index) in transactions" :key="index">
+        <ion-item
+          class="bg-transaction"
+          v-for="(transaction, index) in transactions"
+          :key="index"
+        >
           <div class="float-left transaction-info">
             <div class="vendor">{{ transaction.vendor }}</div>
             <div class="location" v-if="transaction.location">
@@ -69,18 +73,17 @@ const customAnimationBuilder = (baseEl: Element, opts?: object) => {
   const customAnimation = createAnimation()
     .addElement(baseEl as Element)
     .easing('ease-out')
-    .duration(500)
+    .duration(200)
     .keyframes([
-      { offset: 0, transform: 'scale(1)', opacity: '0.5' },
-      { offset: 0.5, transform: 'scale(0.8)', opacity: '1' },
-      { offset: 1, transform: 'scale(1)', opacity: '0.5' },
+      { offset: 0, opacity: 1 },
+      { offset: 1, opacity: 0 },
     ])
 
   return customAnimation
 }
 
 function goBack() {
-  router.push('/home', customAnimationBuilder)
+  router.push('/home')
 }
 </script>
 
@@ -112,11 +115,12 @@ ion-list {
 ion-item {
   --padding-start: 12px;
   --padding-top: 6px;
-  --padding-bottom: 10px;
 }
 
 ion-item .transaction-info {
   width: 100%;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 ion-item .vendor {
@@ -146,5 +150,34 @@ ion-item .transaction-detail ion-icon {
   color: rgba(255, 255, 255, 0.3);
   margin-left: 8px;
   font-size: 20px;
+}
+
+.bg-transaction::part(native) {
+  background-color: #1a1a1a;
+  padding-left: 0px;
+}
+
+.transactions-list {
+  position: absolute;
+  width: calc(100% - 32px);
+  top: 270px;
+}
+
+.fade-up {
+  position: absolute;
+  top: 30px;
+  width: calc(100% - 32px);
+  animation: fadeUp 1s;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    top: 100px;
+  }
+  to {
+    opacity: 1;
+    top: 30px;
+  }
 }
 </style>

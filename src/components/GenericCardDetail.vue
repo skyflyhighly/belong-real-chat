@@ -1,6 +1,6 @@
 <template>
-  <ion-content id="generic-card-detail">
-    <div class="scroll-container ion-padding">
+  <ion-content id="generic-card-detail" class="relative">
+    <div class="scroll-container ion-padding fade-up-generic">
       <swiper
         :modules="modules"
         :autoplay="true"
@@ -73,5 +73,23 @@ const props = defineProps<IProps>()
 
 .scroll-container::-webkit-scrollbar {
   display: none;
+}
+
+.fade-up-generic {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  animation: fadeUpGeneric 1s;
+}
+
+@keyframes fadeUpGeneric {
+  from {
+    opacity: 0;
+    top: 150px;
+  }
+  to {
+    opacity: 1;
+    top: 10px;
+  }
 }
 </style>

@@ -16,6 +16,10 @@
 import { IonPage, IonContent, useIonRouter, createAnimation } from '@ionic/vue'
 
 import Card from '../components/Card.vue'
+import {
+  createTransactionEnterAnimation,
+  createGenericEnterAnimation,
+} from './animations/enter'
 
 interface IProps {
   group: {
@@ -34,22 +38,21 @@ function generateCardOffset(index: number): string {
   return `${10 * index}px`
 }
 
-const customAnimationBuilder = (baseEl?: Element, opts?: object) => {
+const customAnimationBuilder = (baseEl?: HTMLElement, opts?: object) => {
   const customAnimation = createAnimation()
     .addElement(baseEl as Element)
     .easing('ease-out')
-    .duration(500)
+    .duration(200)
     .keyframes([
-      { offset: 0, transform: 'scale(1)', opacity: '0.5' },
-      { offset: 0.5, transform: 'scale(0.8)', opacity: '1' },
-      { offset: 1, transform: 'scale(1)', opacity: '0.5' },
+      { offset: 0, opacity: 1 },
+      { offset: 1, opacity: 0 },
     ])
 
   return customAnimation
 }
 
 function showDetail() {
-  router.push(`/cards/${props.group.type}`, customAnimationBuilder)
+  router.push(`/cards/${props.group.type}`)
 }
 </script>
 
