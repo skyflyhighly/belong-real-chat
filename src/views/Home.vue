@@ -1,6 +1,6 @@
 <template>
-  <ion-page>
-    <ion-content class="ion-padding">
+  <ion-page id="app-home">
+    <ion-content class="ion-padding" ref="demo" v-wheel="wheelHandler">
       <div class="header">
         <ion-title size="large" class="float-left">Wallet</ion-title>
         <ion-button class="modal-close float-left" fill="clear"
@@ -29,7 +29,7 @@
             top: generateCardOffset(cardGroup, index),
           }"
         >
-          <card-group :group="cardGroup" />
+          <card-group :gap="gap" :group="cardGroup" />
         </div>
       </div>
     </ion-content>
@@ -37,6 +37,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { IonContent, IonButton, IonPage, IonTitle, IonIcon } from '@ionic/vue'
 
 import CardGroup from '../components/CardGroup.vue'
@@ -55,7 +56,52 @@ function generateCardOffset(cardGroup: ICardGroup, index: number) {
     cardGroup.type === 'apple-cash' || cardGroup.type === 'debit'
   const offset = isDebitOrCash ? 0 : 230
 
-  return `${45 * index + offset}px`
+  return `${(space.value + gap.value) * index + offset}px`
+}
+
+const demo = ref()
+
+const space = ref(35)
+const gap = ref(10)
+const isWheeling = ref(false)
+const prevY = ref<null | number>(0)
+const timer = ref<NodeJS.Timer | null>(null)
+const step = ref(0.02)
+
+type wheelHandlerProps = {
+  movement: [x: number, y: number]
+  wheeling: any
+}
+
+const wheelHandler = ({ movement: [x, y], wheeling }: wheelHandlerProps) => {
+  isWheeling.value = wheeling
+
+  if (isWheeling.value) {
+    if (timer.value) {
+      clearInterval(timer.value)
+      step.value = 0.5
+    }
+    if (prevY.value !== null) {
+      const delta = (y - prevY.value) / 75.0
+      gap.value = Math.max(9, Math.min(50, gap.value + delta))
+    }
+    prevY.value = y
+  } else {
+    timer.value = setInterval(() => {
+      if (gap.value === 10) {
+        clearInterval(timer.value as NodeJS.Timer)
+        step.value = 0.5
+      } else {
+        if (gap.value > 10) {
+          gap.value = Math.max(gap.value - step.value, 10)
+        } else if (gap.value < 10) {
+          gap.value = Math.min(gap.value + step.value, 10)
+        }
+        step.value += 0.5
+      }
+    }, 40)
+    prevY.value = null
+  }
 }
 </script>
 

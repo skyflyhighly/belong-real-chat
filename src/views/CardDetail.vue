@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-button class="done" @click="goBack()">Done</ion-button>
+          <ion-button class="done" @click="goBack">Done</ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
@@ -32,8 +32,13 @@ import {
   IonToolbar,
   IonIcon,
   useIonRouter,
+  createAnimation,
 } from '@ionic/vue'
 import { useRoute } from 'vue-router'
+import {
+  createGenericLeaveAnimation,
+  createTransactionLeaveAnimation,
+} from '../animations/leave'
 
 import GenericCardDetail from '../components/GenericCardDetail.vue'
 import TransactionCardDetail from '../components/TransactionCardDetail.vue'
@@ -49,23 +54,6 @@ interface ICardGroup {
 const router = useIonRouter()
 const route = useRoute()
 
-// const customAnimationBuilder = (selectedEl: Element, opts?: object) => {
-//   const customAnimation = createAnimation()
-//     .addElement(selectedEl)
-//     .easing('ease-out')
-//     .duration(200)
-//     .keyframes([
-//       { offset: 0, opacity: 1 },
-//       { offset: 1, opacity: 0 },
-//     ])
-
-//   return customAnimation
-// }
-
-function goBack() {
-  router.push('/home')
-}
-
 const selectedCardGroup: ICardGroup[] = cardGroups.filter(
   (cardGroup, index) => cardGroup.type === route.params.id
 )
@@ -73,6 +61,26 @@ const selectedCardGroup: ICardGroup[] = cardGroups.filter(
 const isTransactionCard = () =>
   selectedCardGroup[0].type === 'debit' ||
   selectedCardGroup[0].type === 'apple-cash'
+
+const createLeaveAnimation = isTransactionCard()
+  ? createTransactionLeaveAnimation
+  : createGenericLeaveAnimation
+
+const presentingEl = document.querySelector('#app-home') as HTMLElement
+
+function goBack() {
+  router.push('/home', (baseEl, opts) =>
+    createLeaveAnimation(
+      baseEl,
+      opts,
+      presentingEl,
+      baseEl.querySelector(
+        `#${selectedCardGroup[0].type} .card`
+      ) as HTMLElement,
+      baseEl.querySelector(`#card-${selectedCardGroup[0].type}`) as HTMLElement
+    )
+  )
+}
 </script>
 
 <style scoped>

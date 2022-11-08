@@ -8,6 +8,9 @@
   "dependencies": {
     "@ionic/vue": "^6.0.8",
     "@ionic/vue-router": "^6.0.8",
+    "@vueuse/gesture": "^2.0.0-beta.1",
+    "@vueuse/motion": "^2.0.0-beta.12",
+    "swiper": "^8.4.4",
     "vue": "^3.2.31",
     "vue-router": "^4.0.12"
   },

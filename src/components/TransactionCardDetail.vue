@@ -1,7 +1,12 @@
 <template>
   <ion-content id="transaction-card-detail" class="ion-padding relative">
-    <div class="card-wrapper fade-up">
-      <card :card="getCard()" :mask="false" @click="goBack()"></card>
+    <div class="card-wrapper">
+      <card
+        :card="getCard()"
+        :mask="false"
+        @click="goBack"
+        :id="getCard().type"
+      ></card>
     </div>
 
     <div class="transactions-list">
@@ -43,11 +48,15 @@ import {
   IonListHeader,
   IonLabel,
   useIonRouter,
-  createAnimation,
 } from '@ionic/vue'
 
 import Card from './Card.vue'
-import { transactions } from '../constants'
+import { cardGroups, transactions } from '../constants'
+import { useRoute } from 'vue-router'
+import {
+  createGenericLeaveAnimation,
+  createTransactionLeaveAnimation,
+} from '../animations/leave'
 
 interface IProps {
   group: {
@@ -58,15 +67,43 @@ interface IProps {
   }
 }
 
+interface ICardGroup {
+  cards: {
+    type: string
+  }[]
+  type: string
+}
+
 const props = defineProps<IProps>()
 const router = useIonRouter()
+const route = useRoute()
 
 function getCard() {
   return props.group.cards[0]
 }
 
+const selectedCardGroup: ICardGroup[] = cardGroups.filter(
+  (cardGroup, index) => cardGroup.type === route.params.id
+)
+
+const isTransactionCard = () =>
+  selectedCardGroup[0].type === 'debit' ||
+  selectedCardGroup[0].type === 'apple-cash'
+
+const createLeaveAnimation = isTransactionCard()
+  ? createTransactionLeaveAnimation
+  : createGenericLeaveAnimation
+
+const presentingEl = document.querySelector('#app-home') as HTMLElement
 function goBack() {
-  router.push('/home')
+  router.push('/home', (baseEl, opts) =>
+    createLeaveAnimation(
+      baseEl,
+      opts,
+      presentingEl,
+      baseEl.querySelector(`#${selectedCardGroup[0].type} .card`) as HTMLElement
+    )
+  )
 }
 </script>
 
@@ -144,23 +181,5 @@ ion-item .transaction-detail ion-icon {
   position: absolute;
   width: calc(100% - 32px);
   top: 270px;
-}
-
-.fade-up {
-  position: absolute;
-  top: 30px;
-  width: calc(100% - 32px);
-  animation: fadeUp 1s;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    top: 100px;
-  }
-  to {
-    opacity: 1;
-    top: 30px;
-  }
 }
 </style>

@@ -1,6 +1,9 @@
 <template>
-  <div class="card-container" :class="[card.type, mask ? 'card-mask' : '']">
-    <div class="card"></div>
+  <div
+    class="card-container"
+    :class="[props.card.type, props.mask ? 'card-mask' : '']"
+  >
+    <div class="card transition-card"></div>
   </div>
 </template>
 
@@ -61,5 +64,9 @@ const props = defineProps<IProps>()
 
 .card-container.generic .card {
   background-image: url('../assets/generic.png');
+}
+
+.transition-card {
+  transition: all 5s;
 }
 </style>

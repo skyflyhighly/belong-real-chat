@@ -1,19 +1,24 @@
 <template>
   <div
-    class="card-group"
+    class="card-wrapper"
     v-for="(card, index) in props.group?.cards"
     :key="index"
     :style="{
-      top: generateCardOffset(index),
+      top: `${props.gap * index}px`,
     }"
-    @click="showDetail()"
+    @click="showDetail"
   >
-    <card :card="card" :mask="true"></card>
+    <card :card="card" :id="`card-${card.type}`" :mask="true"></card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IonPage, IonContent, useIonRouter, createAnimation } from '@ionic/vue'
+import { useIonRouter } from '@ionic/vue'
+
+import {
+  createGenericEnterAnimation,
+  createTransactionEnterAnimation,
+} from '../animations/enter'
 
 import Card from '../components/Card.vue'
 
@@ -24,18 +29,26 @@ interface IProps {
       type: string
     }[]
   }
+  gap: number
 }
 
 const router = useIonRouter()
 
 const props = defineProps<IProps>()
 
-function generateCardOffset(index: number): string {
-  return `${10 * index}px`
-}
+const isTransactionCard = () =>
+  props.group.type === 'debit' || props.group.type === 'apple-cash'
 
-function showDetail() {
-  router.push(`/cards/${props.group.type}`)
+const createEnterAnimation = isTransactionCard()
+  ? createTransactionEnterAnimation
+  : createGenericEnterAnimation
+
+const presentingEl = document.querySelector('#app-home') as HTMLElement
+
+function showDetail(e: MouseEvent) {
+  router.push(`/cards/${props.group.type}`, (baseEl, opts) =>
+    createEnterAnimation(baseEl, opts, presentingEl, e.target)
+  )
 }
 </script>
 
@@ -45,7 +58,7 @@ function showDetail() {
   position: relative;
 }
 
-.card-group {
+.card-wrapper {
   position: absolute;
   width: 100%;
 }
