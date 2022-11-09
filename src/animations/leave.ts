@@ -8,7 +8,7 @@ const createRootAnimation = (
   duration?: number
 ) => {
   const rootAnimation = createAnimation()
-    .duration(duration || 400)
+    .duration(duration || 600)
     .addElement(baseEl)
     .easing('cubic-bezier(0.32, 0.72, 0, 1)')
     .beforeAddClass('transaction-modal-hidden')
@@ -54,7 +54,6 @@ const createRootAnimation = (
   let afterCards = [] as HTMLElement[]
 
   const cardElement = elementRef?.parentElement?.parentElement?.parentElement
-  console.log('cardElement', cardElement)
   allCards.forEach((card) => {
     if (card === cardElement) {
       foundMainCard = true
@@ -66,14 +65,6 @@ const createRootAnimation = (
       }
     }
   })
-  console.log(
-    'allCards',
-    allCards,
-    'beforeCards',
-    beforeCards,
-    'afterCards',
-    afterCards
-  )
 
   const beforeCardsAnimation = createAnimation()
     .addElement(beforeCards)
@@ -107,6 +98,7 @@ export const createTransactionLeaveAnimation = (
   translateCardElement?: HTMLElement
 ) => {
   const cardElement = elementRef as HTMLElement
+
   const rootAnimation = createRootAnimation(
     baseEl,
     presentingEl,
@@ -136,7 +128,9 @@ export const createTransactionLeaveAnimation = (
       },
       {
         offset: 1,
-        transform: `translate(0, calc(${cardBBox.top}px + var(--ion-safe-area-top)))`,
+        transform: `translate(0, calc(${
+          cardBBox.top + 30
+        }px + var(--ion-safe-area-top)))`,
       },
     ])
 
@@ -168,13 +162,11 @@ export const createGenericLeaveAnimation = (
   const translateParentElement = translateCardElement?.parentElement
     ?.parentElement as HTMLElement
   const cardBBox = translateParentElement.getBoundingClientRect()
-  console.log(translateParentElement, cardBBox)
 
   const allCards = Array.from(parentElement.querySelectorAll('.card'))
   const primaryCard = allCards[allCards.length - 1]
   const secondaryCards = allCards.slice(0, allCards.length)
 
-  console.log('all', allCards, primaryCard, secondaryCards)
   const cardOffset = 50
   const totalCardOffset = cardOffset * secondaryCards.length
 

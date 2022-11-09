@@ -1,10 +1,10 @@
 <template>
   <div
     class="card-wrapper"
-    v-for="(card, index) in props.group?.cards"
+    v-for="(card, index) in group?.cards"
     :key="index"
     :style="{
-      top: `${props.gap * index}px`,
+      top: `${gap * index}px`,
     }"
     @click="showDetail"
   >
@@ -35,6 +35,7 @@ interface IProps {
 const router = useIonRouter()
 
 const props = defineProps<IProps>()
+const { group, gap } = props
 
 const isTransactionCard = () =>
   props.group.type === 'debit' || props.group.type === 'apple-cash'
@@ -45,7 +46,7 @@ const createEnterAnimation = isTransactionCard()
 
 const presentingEl = document.querySelector('#app-home') as HTMLElement
 
-function showDetail(e: MouseEvent) {
+const showDetail = (e: MouseEvent) => {
   router.push(`/cards/${props.group.type}`, (baseEl, opts) =>
     createEnterAnimation(baseEl, opts, presentingEl, e.target)
   )

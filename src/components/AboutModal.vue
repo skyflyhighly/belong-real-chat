@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="end">
@@ -23,4 +23,4 @@ import {
 } from '@ionic/vue'
 
 defineEmits(['onClose'])
-</script>
+</script> -->

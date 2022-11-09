@@ -78,14 +78,13 @@ const props = defineProps<IProps>()
 const router = useIonRouter()
 const route = useRoute()
 
-function getCard() {
+const getCard = () => {
   return props.group.cards[0]
 }
 
 const selectedCardGroup: ICardGroup[] = cardGroups.filter(
   (cardGroup, index) => cardGroup.type === route.params.id
 )
-
 const isTransactionCard = () =>
   selectedCardGroup[0].type === 'debit' ||
   selectedCardGroup[0].type === 'apple-cash'
@@ -95,7 +94,8 @@ const createLeaveAnimation = isTransactionCard()
   : createGenericLeaveAnimation
 
 const presentingEl = document.querySelector('#app-home') as HTMLElement
-function goBack() {
+
+const goBack = () => {
   router.push('/home', (baseEl, opts) =>
     createLeaveAnimation(
       baseEl,

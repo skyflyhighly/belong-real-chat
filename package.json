@@ -2,10 +2,14 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^4.4.0",
+    "@capacitor/cli": "^4.4.0",
+    "@capacitor/core": "^4.4.0",
+    "@capacitor/ios": "^4.4.0",
     "@ionic/vue": "^6.0.8",
     "@ionic/vue-router": "^6.0.8",
     "@vueuse/gesture": "^2.0.0-beta.1",

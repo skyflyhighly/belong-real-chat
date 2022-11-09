@@ -3,7 +3,7 @@
     <div class="scroll-container ion-padding">
       <div
         class="card-wrapper"
-        v-for="(card, index) in props.group.cards"
+        v-for="(card, index) in group.cards"
         :key="index"
         :style="{
           left: index * 8 + 'px',
@@ -38,6 +38,7 @@ interface IProps {
 }
 
 const props = defineProps<IProps>()
+const { group } = props
 </script>
 
 <style scoped>

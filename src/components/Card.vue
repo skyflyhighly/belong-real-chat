@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="card-container"
-    :class="[props.card.type, props.mask ? 'card-mask' : '']"
-  >
+  <div class="card-container" :class="[card.type, mask ? 'card-mask' : '']">
     <div class="card transition-card"></div>
   </div>
 </template>
@@ -16,6 +13,7 @@ interface IProps {
 }
 
 const props = defineProps<IProps>()
+const { card, mask } = props
 </script>
 
 <style scoped>
