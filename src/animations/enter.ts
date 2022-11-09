@@ -116,7 +116,7 @@ export const createTransactionEnterAnimation = (
     presentingEl,
     opts,
     cardElement,
-    700
+    600
   )
     .beforeAddClass('transaction-modal-hidden')
     .afterRemoveClass('transaction-modal-hidden')

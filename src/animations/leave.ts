@@ -150,7 +150,7 @@ export const createGenericLeaveAnimation = (
     presentingEl,
     opts,
     cardElement,
-    600
+    800
   ).afterAddWrite(() =>
     document
       .querySelectorAll('.card-mask')

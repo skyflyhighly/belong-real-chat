@@ -60,13 +60,12 @@ function generateCardOffset(cardGroup: ICardGroup, index: number) {
 }
 
 const demo = ref()
-
 const space = ref(35)
 const gap = ref(10)
 const isWheeling = ref(false)
 const prevY = ref<null | number>(0)
 const timer = ref<NodeJS.Timer | null>(null)
-const step = ref(0.02)
+const step = ref(0.5)
 
 type wheelHandlerProps = {
   movement: [x: number, y: number]
@@ -79,27 +78,27 @@ const wheelHandler = ({ movement: [x, y], wheeling }: wheelHandlerProps) => {
   if (isWheeling.value) {
     if (timer.value) {
       clearInterval(timer.value)
-      step.value = 0.5
+      step.value = 0.2
     }
     if (prevY.value !== null) {
-      const delta = (y - prevY.value) / 75.0
-      gap.value = Math.max(9, Math.min(50, gap.value + delta))
+      const delta = (y - prevY.value) / 30.0
+      gap.value = Math.max(7, Math.min(50, gap.value + delta))
     }
     prevY.value = y
   } else {
     timer.value = setInterval(() => {
       if (gap.value === 10) {
         clearInterval(timer.value as NodeJS.Timer)
-        step.value = 0.5
+        step.value = 0.2
       } else {
         if (gap.value > 10) {
           gap.value = Math.max(gap.value - step.value, 10)
         } else if (gap.value < 10) {
           gap.value = Math.min(gap.value + step.value, 10)
         }
-        step.value += 0.5
+        step.value += 0.2
       }
-    }, 40)
+    }, 10)
     prevY.value = null
   }
 }
