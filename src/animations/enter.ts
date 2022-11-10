@@ -18,20 +18,6 @@ const createRootAnimation = (
     .addElement(baseEl)
     .easing('cubic-bezier(0.32, 0.72, 0, 1)')
 
-  const modalCloseButton = createAnimation()
-    .addElement(baseEl.querySelector('ion-button.modal-close') as HTMLElement)
-    .keyframes([
-      { offset: 0, opacity: 0, transform: 'translate(-36px, -25px) scale(2)' },
-      { offset: 1, opacity: 1, transform: 'translate(-22px, -51px) scale(1)' },
-    ])
-
-  const modalMoreButton = createAnimation()
-    .addElement(baseEl.querySelector('ion-icon.modal-more') as HTMLElement)
-    .keyframes([
-      { offset: 0, opacity: 0, transform: 'translate(0px, 8px) scale(1.15)' },
-      { offset: 1, opacity: 1, transform: 'translate(12px, -42px) scale(1)' },
-    ])
-
   const homePageTitle = createAnimation()
     .addElement(baseEl.querySelector('.header ion-title') as HTMLElement)
     .keyframes([
@@ -52,20 +38,20 @@ const createRootAnimation = (
       },
     ])
 
-  /**
-   * This lets us control which direction
-   * each of the cards go. Given a tapped card,
-   * cards below it should move down and away but
-   * cards above it should move up and away.
-   */
+  // /**
+  //  * This lets us control which direction
+  //  * each of the cards go. Given a tapped card,
+  //  * cards below it should move down and away but
+  //  * cards above it should move up and away.
+  //  */
   let foundMainCard = false
   const allCards = Array.from(baseEl.querySelectorAll('.card-group'))
   let beforeCards = [] as HTMLElement[]
   let afterCards = [] as HTMLElement[]
 
-  /**
-   * TODO: See if you can find a way to do this without using a loop!
-   */
+  // /**
+  //  * TODO: See if you can find a way to do this without using a loop!
+  //  */
   const cardElement = elementRef?.parentElement?.parentElement?.parentElement
   allCards.forEach((card) => {
     if (card === cardElement) {
@@ -95,8 +81,6 @@ const createRootAnimation = (
     ])
 
   return rootAnimation.addAnimation([
-    modalCloseButton,
-    modalMoreButton,
     homePageTitle,
     homePageButton,
     beforeCardsAnimation,
@@ -116,11 +100,8 @@ export const createTransactionEnterAnimation = (
     presentingEl,
     opts,
     cardElement,
-    600
+    800
   )
-    .beforeAddClass('transaction-modal-hidden')
-    .afterRemoveClass('transaction-modal-hidden')
-    .fill('none')
 
   const transactionsList = createAnimation()
     .addElement(baseEl.querySelector('.transactions-list') as HTMLElement)
@@ -131,7 +112,9 @@ export const createTransactionEnterAnimation = (
 
   const parentElement = cardElement?.parentElement?.parentElement
     ?.parentElement as HTMLElement
+
   const cardBBox = parentElement.getBoundingClientRect()
+
   const mainCard = createAnimation()
     .addElement(parentElement)
     .easing('cubic-bezier(0.17, 0.67, 0.22, 1.26)')
@@ -160,7 +143,7 @@ export const createGenericEnterAnimation = (
     presentingEl,
     opts,
     cardElement,
-    1400
+    1800
   )
     .beforeAddWrite(
       () =>
@@ -198,27 +181,20 @@ export const createGenericEnterAnimation = (
    * Maybe a problem we can solve in Ionic Animations
    * via a feature?
    */
-  // .onFinish(() => rootAnimation.destroy())
-  // const rootAnimationFinish = createRootAnimation(
-  //   baseEl,
-  //   presentingEl,
-  //   opts,
-  //   cardElement
-  // )
 
   const mainCard = createAnimation()
     .addElement(parentElement)
     .keyframes([
       { offset: 0, transform: 'translate(0, 0)', opacity: 1 },
       {
-        offset: 0.4,
+        offset: 0.6,
         transform: `translate(0, calc(-${
           cardBBox.top - 60
         }px + var(--ion-safe-area-top) + ${totalCardOffset}px))`,
         opacity: 1,
       },
       {
-        offset: 0.6,
+        offset: 0.9,
         transform: `translate(0, calc(-${
           cardBBox.top - 60
         }px + var(--ion-safe-area-top) + ${totalCardOffset}px))`,
@@ -240,14 +216,14 @@ export const createGenericEnterAnimation = (
       .keyframes([
         { offset: 0, transform: 'translate(0, 0)', opacity: 1 },
         {
-          offset: 0.4,
+          offset: 0.6,
           transform: `translate(0, -${
             cardOffset * Math.abs(i - secondaryCards.length)
           }px)`,
           opacity: 1,
         },
         {
-          offset: 0.6,
+          offset: 0.9,
           transform: `translate(0, -${
             cardOffset * Math.abs(i - secondaryCards.length)
           }px)`,

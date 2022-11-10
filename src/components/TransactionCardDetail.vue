@@ -101,7 +101,10 @@ const goBack = () => {
       baseEl,
       opts,
       presentingEl,
-      baseEl.querySelector(`#${selectedCardGroup[0].type} .card`) as HTMLElement
+      baseEl.querySelector(
+        `#${selectedCardGroup[0].type} .card`
+      ) as HTMLElement,
+      baseEl.querySelector(`#card-${selectedCardGroup[0].type}`) as HTMLElement
     )
   )
 }

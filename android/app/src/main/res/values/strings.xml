@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">belong-real-chat</string>
-    <string name="title_activity_main">belong-real-chat</string>
-    <string name="package_name">com.wallet.appleapp</string>
-    <string name="custom_url_scheme">com.wallet.appleapp</string>
-</resources>

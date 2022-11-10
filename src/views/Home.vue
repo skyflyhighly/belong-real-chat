@@ -29,7 +29,9 @@
             top: generateCardOffset(cardGroup, index),
           }"
         >
-          <card-group :gap="gap" :group="cardGroup" />
+          <starport keep-alive port="starport">
+            <card-group :gap="gap" :group="cardGroup" />
+          </starport>
         </div>
       </div>
     </ion-content>
@@ -38,7 +40,15 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { IonContent, IonButton, IonPage, IonTitle, IonIcon } from '@ionic/vue'
+import {
+  IonContent,
+  IonButton,
+  IonPage,
+  IonTitle,
+  IonIcon,
+  createAnimation,
+} from '@ionic/vue'
+import { Starport } from 'vue-starport'
 
 import CardGroup from '../components/CardGroup.vue'
 
@@ -81,7 +91,7 @@ const wheelHandler = ({ movement: [x, y], wheeling }: wheelHandlerProps) => {
       step.value = 0.2
     }
     if (prevY.value !== null) {
-      const delta = (y - prevY.value) / 30.0
+      const delta = (y - prevY.value) / 15.0
       gap.value = Math.max(7, Math.min(50, gap.value + delta))
     }
     prevY.value = y
@@ -102,6 +112,12 @@ const wheelHandler = ({ movement: [x, y], wheeling }: wheelHandlerProps) => {
     prevY.value = null
   }
 }
+
+createAnimation()
+  .addElement(demo.value)
+  .duration(2000)
+  .fromTo('transform', 'translateX(0px)', 'translateX(100px)')
+  .fromTo('opacity', '1', '0.2')
 </script>
 
 <style scoped>

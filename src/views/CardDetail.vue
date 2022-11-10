@@ -14,12 +14,13 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-
-    <transaction-card-detail
-      v-if="isTransactionCard()"
-      :group="selectedCardGroup[0]"
-    />
-    <generic-card-detail v-else :group="selectedCardGroup[0]" />
+    <starport keep-alive port="startport">
+      <transaction-card-detail
+        v-if="isTransactionCard()"
+        :group="selectedCardGroup[0]"
+      />
+      <generic-card-detail v-else :group="selectedCardGroup[0]" />
+    </starport>
   </ion-page>
 </template>
 
@@ -32,8 +33,8 @@ import {
   IonToolbar,
   IonIcon,
   useIonRouter,
-  createAnimation,
 } from '@ionic/vue'
+import { Starport } from 'vue-starport'
 import { useRoute } from 'vue-router'
 import {
   createGenericLeaveAnimation,

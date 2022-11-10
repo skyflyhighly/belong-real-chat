@@ -14,80 +14,7 @@ const createRootAnimation = (
     .beforeAddClass('transaction-modal-hidden')
     .afterRemoveClass('transaction-modal-hidden')
 
-  const modalCloseButton = createAnimation()
-    .addElement(baseEl.querySelector('ion-button.modal-close') as HTMLElement)
-    .keyframes([
-      { offset: 0, opacity: 1, transform: 'translate(-22px, -51px) scale(1)' },
-      { offset: 1, opacity: 0, transform: 'translate(-36px, -25px) scale(2)' },
-    ])
-
-  const modalMoreButton = createAnimation()
-    .addElement(baseEl.querySelector('ion-icon.modal-more') as HTMLElement)
-    .keyframes([
-      { offset: 0, opacity: 1, transform: 'translate(12px, -42px) scale(1)' },
-      { offset: 1, opacity: 0, transform: 'translate(0px, 8px) scale(1.15)' },
-    ])
-
-  const homePageTitle = createAnimation()
-    .addElement(baseEl.querySelector('.header ion-title') as HTMLElement)
-    .keyframes([
-      { offset: 0, opacity: 0, transform: 'translate(0, -40px) scale(0.6)' },
-      { offset: 1, opacity: 1, transform: 'translate(0, 0) scale(1)' },
-    ])
-
-  const homePageButton = createAnimation()
-    .addElement(
-      baseEl.querySelector('.header ion-icon.add-to-wallet') as HTMLElement
-    )
-    .keyframes([
-      {
-        offset: 0,
-        opacity: 0.1,
-        transform: 'translate(12px, -50px) scale(0.85)',
-      },
-      { offset: 1, opacity: 1, transform: 'translate(0, 0) scale(1)' },
-    ])
-
-  let foundMainCard = false
-  const allCards = Array.from(baseEl.querySelectorAll('.card-group'))
-  let beforeCards = [] as HTMLElement[]
-  let afterCards = [] as HTMLElement[]
-
-  const cardElement = elementRef?.parentElement?.parentElement?.parentElement
-  allCards.forEach((card) => {
-    if (card === cardElement) {
-      foundMainCard = true
-    } else {
-      if (foundMainCard) {
-        afterCards.push(card as HTMLElement)
-      } else {
-        beforeCards.push(card as HTMLElement)
-      }
-    }
-  })
-
-  const beforeCardsAnimation = createAnimation()
-    .addElement(beforeCards)
-    .keyframes([
-      { offset: 0, transform: 'translate(0, 0) scale(1)', opacity: 1 },
-      { offset: 1, transform: 'translate(0, -20px) scale(0.8)', opacity: 0 },
-    ])
-
-  const afterCardsAnimation = createAnimation()
-    .addElement(afterCards)
-    .keyframes([
-      { offset: 0, transform: 'translate(0, 100vh)' },
-      { offset: 1, transform: 'translate(0, 0)' },
-    ])
-
-  return rootAnimation.addAnimation([
-    modalCloseButton,
-    modalMoreButton,
-    homePageTitle,
-    homePageButton,
-    beforeCardsAnimation,
-    afterCardsAnimation,
-  ])
+  return rootAnimation
 }
 
 export const createTransactionLeaveAnimation = (
@@ -98,12 +25,14 @@ export const createTransactionLeaveAnimation = (
   translateCardElement?: HTMLElement
 ) => {
   const cardElement = elementRef as HTMLElement
-
+  const translateParentElement =
+    translateCardElement?.parentElement as HTMLElement
   const rootAnimation = createRootAnimation(
     baseEl,
     presentingEl,
     opts,
-    cardElement
+    cardElement,
+    800
   )
 
   const transactionsList = createAnimation()
@@ -115,7 +44,8 @@ export const createTransactionLeaveAnimation = (
 
   const parentElement = cardElement?.parentElement?.parentElement as HTMLElement
 
-  const cardBBox = parentElement.getBoundingClientRect()
+  const cardBBox = translateParentElement.getBoundingClientRect()
+
   const mainCard = createAnimation()
     .addElement(parentElement)
     .easing('cubic-bezier(0.17, 0.67, 0.22, 1.26)')
@@ -123,13 +53,13 @@ export const createTransactionLeaveAnimation = (
       {
         offset: 0,
         transform: `translate(0, calc(-${
-          cardBBox.top - 60
+          cardBBox.top - 154
         }px + var(--ion-safe-area-top)))`,
       },
       {
         offset: 1,
         transform: `translate(0, calc(${
-          cardBBox.top + 30
+          cardBBox.top - 64
         }px + var(--ion-safe-area-top)))`,
       },
     ])
@@ -150,7 +80,7 @@ export const createGenericLeaveAnimation = (
     presentingEl,
     opts,
     cardElement,
-    800
+    1200
   ).afterAddWrite(() =>
     document
       .querySelectorAll('.card-mask')
@@ -159,8 +89,10 @@ export const createGenericLeaveAnimation = (
 
   const parentElement = cardElement?.parentElement?.parentElement
     ?.parentElement as HTMLElement
+
   const translateParentElement = translateCardElement?.parentElement
     ?.parentElement as HTMLElement
+
   const cardBBox = translateParentElement.getBoundingClientRect()
 
   const allCards = Array.from(parentElement.querySelectorAll('.card'))
@@ -172,14 +104,17 @@ export const createGenericLeaveAnimation = (
 
   const mainCard = createAnimation()
     .addElement(cardElement)
+    .easing('cubic-bezier(0.32, 0.72, 0, 1)')
     .keyframes([
       {
         offset: 0,
         transform: `translate(${cardBBox.x}px, 0)`,
+        opacity: 1,
       },
       {
         offset: 1,
         transform: `translate(${cardBBox.x}px, calc(${cardBBox.top - 60}px)`,
+        opacity: 1,
       },
     ])
     .onFinish(() => rootAnimation.play())
@@ -192,12 +127,14 @@ export const createGenericLeaveAnimation = (
         {
           offset: 0,
           transform: `translate(0, 0)`,
+          opacity: 1,
         },
         {
           offset: 1,
           transform: `translate(calc(-${94 * i}vw + ${cardBBox.x}px), ${
             cardBBox.top - 70 + 10 * (i + 1)
           }px)`,
+          opacity: 1,
         },
       ])
 
