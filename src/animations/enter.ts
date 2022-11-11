@@ -100,7 +100,7 @@ export const createTransactionEnterAnimation = (
     presentingEl,
     opts,
     cardElement,
-    800
+    1000
   )
 
   const transactionsList = createAnimation()
@@ -112,7 +112,7 @@ export const createTransactionEnterAnimation = (
 
   const parentElement = cardElement?.parentElement?.parentElement
     ?.parentElement as HTMLElement
-
+  console.log('parentElement', parentElement, 'cardElement', cardElement)
   const cardBBox = parentElement.getBoundingClientRect()
 
   const mainCard = createAnimation()

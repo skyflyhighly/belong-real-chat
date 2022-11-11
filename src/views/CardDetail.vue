@@ -14,13 +14,11 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <starport keep-alive port="startport">
-      <transaction-card-detail
-        v-if="isTransactionCard()"
-        :group="selectedCardGroup[0]"
-      />
-      <generic-card-detail v-else :group="selectedCardGroup[0]" />
-    </starport>
+    <transaction-card-detail
+      v-if="isTransactionCard()"
+      :group="selectedCardGroup[0]"
+    />
+    <generic-card-detail v-else :group="selectedCardGroup[0]" />
   </ion-page>
 </template>
 

@@ -32,3 +32,7 @@
   --background: transparent;
   pointer-events: none;
 }
+
+*:host {
+  --background: transparent !important;
+}

@@ -28,7 +28,8 @@ import './global.css'
 
 const app = createApp(App).use(IonicVue).use(router)
 
-app.use(StarportPlugin())
+// app.use(StarportPlugin())
+app.use(StarportPlugin({ keepAlive: true }))
 app.use(GesturePlugin)
 
 router.isReady().then(() => {

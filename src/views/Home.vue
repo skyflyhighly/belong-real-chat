@@ -29,9 +29,7 @@
             top: generateCardOffset(cardGroup, index),
           }"
         >
-          <starport keep-alive port="starport">
-            <card-group :gap="gap" :group="cardGroup" />
-          </starport>
+          <card-group :gap="gap" :group="cardGroup" />
         </div>
       </div>
     </ion-content>

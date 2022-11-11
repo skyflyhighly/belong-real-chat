@@ -14,7 +14,26 @@ const createRootAnimation = (
     .beforeAddClass('transaction-modal-hidden')
     .afterRemoveClass('transaction-modal-hidden')
 
-  return rootAnimation
+  const cardDetail = createAnimation()
+    .duration(duration || 600)
+    .addElement(baseEl.querySelector('#card-detail') as HTMLElement)
+    .keyframes([
+      { offset: 0, opacity: 1 },
+      { offset: 0.7, opacity: 1 },
+      { offset: 1, opacity: 1 },
+    ])
+
+  const appHome = createAnimation()
+    .duration(duration || 600)
+    .addElement(baseEl.querySelector('#app-home') as HTMLElement)
+    .keyframes([
+      { offset: 0, opacity: 0 },
+      { offset: 0.7, opacity: 0.08 },
+      { offset: 1, opacity: 1 },
+    ])
+    .beforeRemoveClass('ion-page-hidden')
+
+  return rootAnimation.addAnimation([cardDetail, appHome])
 }
 
 export const createTransactionLeaveAnimation = (
@@ -32,11 +51,12 @@ export const createTransactionLeaveAnimation = (
     presentingEl,
     opts,
     cardElement,
-    800
+    2000
   )
 
   const transactionsList = createAnimation()
     .addElement(baseEl.querySelectorAll('.transactions-list'))
+    .easing('cubic-bezier(0.17, 0.67, 0.22, 1.26)')
     .keyframes([
       { offset: 0, opacity: 1 },
       { offset: 1, opacity: 0 },
@@ -53,13 +73,19 @@ export const createTransactionLeaveAnimation = (
       {
         offset: 0,
         transform: `translate(0, calc(-${
-          cardBBox.top - 154
+          cardBBox.top - 150
+        }px + var(--ion-safe-area-top)))`,
+      },
+      {
+        offset: 0.7,
+        transform: `translate(0, calc(${
+          cardBBox.top - 60
         }px + var(--ion-safe-area-top)))`,
       },
       {
         offset: 1,
         transform: `translate(0, calc(${
-          cardBBox.top - 64
+          cardBBox.top - 60
         }px + var(--ion-safe-area-top)))`,
       },
     ])
@@ -80,7 +106,7 @@ export const createGenericLeaveAnimation = (
     presentingEl,
     opts,
     cardElement,
-    1200
+    1800
   ).afterAddWrite(() =>
     document
       .querySelectorAll('.card-mask')
@@ -112,6 +138,11 @@ export const createGenericLeaveAnimation = (
         opacity: 1,
       },
       {
+        offset: 0.7,
+        transform: `translate(${cardBBox.x}px, calc(${cardBBox.top - 60}px)`,
+        opacity: 1,
+      },
+      {
         offset: 1,
         transform: `translate(${cardBBox.x}px, calc(${cardBBox.top - 60}px)`,
         opacity: 1,
@@ -130,8 +161,15 @@ export const createGenericLeaveAnimation = (
           opacity: 1,
         },
         {
+          offset: 0.7,
+          transform: `translate(calc(-${93.5 * i}vw + ${cardBBox.x}px), ${
+            cardBBox.top - 70 + 10 * (i + 1)
+          }px)`,
+          opacity: 1,
+        },
+        {
           offset: 1,
-          transform: `translate(calc(-${94 * i}vw + ${cardBBox.x}px), ${
+          transform: `translate(calc(-${93.5 * i}vw + ${cardBBox.x}px), ${
             cardBBox.top - 70 + 10 * (i + 1)
           }px)`,
           opacity: 1,

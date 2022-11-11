@@ -184,5 +184,15 @@ ion-item .transaction-detail ion-icon {
   position: absolute;
   width: calc(100% - 32px);
   top: 270px;
+  animation: transactionList 1.5s;
+}
+
+@keyframes transactionList {
+  from {
+    top: 3000px;
+  }
+  to {
+    top: 270px;
+  }
 }
 </style>
