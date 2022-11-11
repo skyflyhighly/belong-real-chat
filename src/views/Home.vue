@@ -46,7 +46,6 @@ import {
   IonIcon,
   createAnimation,
 } from '@ionic/vue'
-import { Starport } from 'vue-starport'
 
 import CardGroup from '../components/CardGroup.vue'
 
