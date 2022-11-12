@@ -3,13 +3,15 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-button class="done" @click="goBack">Done</ion-button>
+          <ion-button class="done text-white opacity-[1]" @click="goBack"
+            >Done</ion-button
+          >
         </ion-buttons>
 
         <ion-buttons slot="end">
           <ion-icon
             name="ellipsis-horizontal-circle-sharp"
-            class="more"
+            class="text-[28px]"
           ></ion-icon>
         </ion-buttons>
       </ion-toolbar>
@@ -83,22 +85,13 @@ function goBack() {
 </script>
 
 <style scoped>
-.relative {
-  position: relative;
-}
-
 ion-header ion-toolbar {
   --border-width: 0px;
   --background: black;
 }
 
 ion-header .done {
-  font-weight: 600;
   --color: white;
-  --opacity: 1;
-}
-
-ion-header .more {
-  font-size: 28px;
+  font-weight: 600;
 }
 </style>

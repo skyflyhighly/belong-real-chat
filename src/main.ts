@@ -26,6 +26,9 @@ import '@ionic/vue/css/display.css'
 import './theme/variables.css'
 import './global.css'
 
+import 'virtual:windi.css'
+import 'virtual:windi-devtools'
+
 const app = createApp(App).use(IonicVue).use(router)
 
 // app.use(StarportPlugin())

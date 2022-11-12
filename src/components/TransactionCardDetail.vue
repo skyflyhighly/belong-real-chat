@@ -9,7 +9,7 @@
       ></card>
     </div>
 
-    <div class="transactions-list">
+    <div class="transactions-list absolute top-[270px]">
       <ion-list-header>
         <ion-label>Latest Transactions</ion-label>
       </ion-list-header>
@@ -19,17 +19,27 @@
           v-for="(transaction, index) in transactions"
           :key="index"
         >
-          <div class="float-left transaction-info">
-            <div class="vendor">{{ transaction.vendor }}</div>
-            <div class="location" v-if="transaction.location">
+          <div class="float-left w-full pb-[10px] pl-[10px]">
+            <div class="font-semibold text-base leading-6">
+              {{ transaction.vendor }}
+            </div>
+            <div
+              class="text-[#ffffffb3] text-[15px] leading-5"
+              v-if="transaction.location"
+            >
               {{ transaction.location }}
             </div>
-            <div class="date">{{ transaction.date }}</div>
+            <div class="text-[#ffffffb3] text-[15px] leading-5">
+              {{ transaction.date }}
+            </div>
           </div>
 
-          <div class="float-right transaction-detail">
-            <div class="price">{{ transaction.price }}</div>
-            <ion-icon name="chevron-forward"></ion-icon>
+          <div class="float-right items-center flex mt-[-36px]">
+            <div class="text-base">{{ transaction.price }}</div>
+            <ion-icon
+              name="chevron-forward"
+              class="text-[#ffffff4d] ml-2 text-xl"
+            ></ion-icon>
           </div>
 
           <div class="float-clear"></div>
@@ -140,39 +150,8 @@ ion-item {
   --padding-top: 6px;
 }
 
-ion-item .transaction-info {
-  width: 100%;
-  padding-bottom: 10px;
-  padding-left: 10px;
-}
-
-ion-item .vendor {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-ion-item .location,
-ion-item .date {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  line-height: 20px;
-}
-
-ion-item .transaction-detail {
-  align-items: center;
-  display: flex;
-  margin-top: -36px;
-}
-
 ion-item .transaction-detail .price {
   font-size: 16px;
-}
-
-ion-item .transaction-detail ion-icon {
-  color: rgba(255, 255, 255, 0.3);
-  margin-left: 8px;
-  font-size: 20px;
 }
 
 .bg-transaction::part(native) {
@@ -181,9 +160,7 @@ ion-item .transaction-detail ion-icon {
 }
 
 .transactions-list {
-  position: absolute;
   width: calc(100% - 32px);
-  top: 270px;
   animation: transactionList 1.5s;
 }
 

@@ -3,26 +3,28 @@
     <ion-content class="ion-padding" ref="demo" v-wheel="wheelHandler">
       <div class="header">
         <ion-title size="large" class="float-left">Wallet</ion-title>
-        <ion-button class="modal-close float-left" fill="clear"
+        <ion-button
+          class="transform-top-left text-white pointer-events-none absolute left-0 opacity-0 font-semibold m-0 float-left"
+          fill="clear"
           >Done</ion-button
         >
 
         <ion-icon
           name="add-circle"
           slot="icon-only"
-          class="float-right add-to-wallet trans"
+          class="float-right add-to-wallet trans text-[32px] my-2 mx-0"
         >
         </ion-icon>
         <ion-icon
           name="ellipsis-horizontal-circle-sharp"
-          class="modal-more float-right"
+          class="pointer-events-none absolute right-0 transform-top-left opacity-0 text-[28px] m-0 float-right"
         ></ion-icon>
         <div class="float-clear"></div>
       </div>
 
-      <div class="card-groups">
+      <div class="card-groups relative mt-[10px]">
         <div
-          class="card-group trans-slow ion-activatable"
+          class="card-group w-full relative block trans-slow"
           v-for="(cardGroup, index) in cardGroups"
           :key="index"
           :style="{
@@ -109,12 +111,6 @@ const wheelHandler = ({ movement: [x, y], wheeling }: wheelHandlerProps) => {
     prevY.value = null
   }
 }
-
-createAnimation()
-  .addElement(demo.value)
-  .duration(2000)
-  .fromTo('transform', 'translateX(0px)', 'translateX(100px)')
-  .fromTo('opacity', '1', '0.2')
 </script>
 
 <style scoped>
@@ -126,25 +122,8 @@ ion-content {
   position: relative;
 }
 
-.header .modal-close {
-  pointer-events: none;
-  position: absolute;
-  left: 0;
+.header .transform-top-left {
   transform-origin: top left;
-  opacity: 0;
-  font-weight: 600;
-  margin: 0;
-  --color: white;
-}
-
-.header .modal-more {
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  transform-origin: top right;
-  opacity: 0;
-  font-size: 28px;
-  margin: 0;
 }
 
 ion-title {
@@ -157,8 +136,6 @@ ion-title {
 }
 
 .add-to-wallet {
-  font-size: 32px;
-  margin: 8px 0;
   transform-origin: top right;
 }
 
@@ -166,17 +143,11 @@ ion-title {
   opacity: 0.7;
 }
 
-.card-groups,
-.pass-groups {
-  position: relative;
-  margin-top: 10px;
+.card-groups {
   z-index: 1;
 }
 
 .card-group {
-  width: 100%;
   transform-origin: top;
-  position: relative;
-  display: block;
 }
 </style>

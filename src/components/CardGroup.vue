@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card-wrapper"
+    class="card-wrapper absolute w-full"
     v-for="(card, index) in group?.cards"
     :key="index"
     :style="{
@@ -57,10 +57,5 @@ const showDetail = (e: MouseEvent) => {
 :host {
   display: block;
   position: relative;
-}
-
-.card-wrapper {
-  position: absolute;
-  width: 100%;
 }
 </style>
