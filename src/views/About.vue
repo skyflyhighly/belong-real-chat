@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <ion-page>
     <ion-header>
       <ion-toolbar>
@@ -10,7 +10,7 @@
     </ion-header>
     <ion-content class="ion-padding">
       <h1>About</h1>
-      <!-- MODAL CODE -->
+      MODAL CODE
       <ion-modal :is-open="modalIsOpen" @didDismiss="closeModal()">
         <about-modal @onClose="closeModal" />
       </ion-modal>
@@ -44,4 +44,4 @@ const closeModal = () => {
 }
 </script>
 
-<style></style>
+<style></style> -->

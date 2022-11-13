@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="end">
@@ -13,16 +13,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineComponent } from 'vue'
 import {
   IonContent,
   IonButton,
   IonButtons,
-  IonBackButton,
   IonHeader,
   IonTitle,
   IonToolbar,
 } from '@ionic/vue'
 
 defineEmits(['onClose'])
-</script>
+</script> -->

@@ -1,0 +1,38 @@
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-clear {
+  clear: both;
+}
+
+.trans {
+  transition: 0.2s all ease-in-out;
+}
+
+.trans-slow {
+  transition: 0.3s all ease-in-out;
+}
+
+.modal-wrapper {
+  transform: unset !important;
+  background: transparent !important;
+}
+
+.transaction-modal-hidden ion-header,
+.transaction-modal-hidden ion-content card {
+  visibility: hidden;
+}
+
+.transaction-modal-hidden ion-content {
+  --background: transparent;
+  pointer-events: none;
+}
+
+*:host {
+  --background: transparent !important;
+}
