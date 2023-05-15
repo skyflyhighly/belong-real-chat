@@ -1,0 +1,28 @@
+{
+  "rooms": [
+    {
+      "id": 0,
+      "name": "Minsk",
+      "src": "https://i.pravatar.cc/300?img=1",
+      "message": "Bob says Hi",
+      "time": "13:02",
+      "unViewed": 2
+    },
+    {
+      "id": 1,
+      "name": "Moscow",
+      "src": "https://i.pravatar.cc/300?img=2",
+      "message": "ok, i love",
+      "time": "0:02",
+      "unViewed": 0
+    },
+    {
+      "id": 2,
+      "name": "Kiev",
+      "src": "https://i.pravatar.cc/300?img=3",
+      "message": "good exp",
+      "time": "15:23",
+      "unViewed": 0
+    }
+  ]
+}
